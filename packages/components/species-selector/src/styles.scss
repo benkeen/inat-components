@@ -1,0 +1,109 @@
+.row {
+  font-size: 12px;
+  font-family: arial;
+  width: 100%;
+  display: flex;
+  padding: 3px;
+
+  &:hover {
+    background-color: #efefef;
+  }
+
+  img {
+    flex: 0 0 32px;
+    margin-right: 6px;
+  }
+
+  &>div {
+    flex: 1;
+  }
+
+  h4 {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 0 4px;
+  }
+  .rank {
+    float: right;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 10px;
+    margin-right: 8px;
+    color: white;
+  }
+
+
+  // section
+  // apifamily
+
+  // generated from: https://planetcalc.com/5799/
+  .kingdom {
+    background-color: #ff0000;
+  }
+  .phylum {
+    background-color: #ff3c00;
+  }
+  .subphylum {
+    background-color: #ff7300;
+  }
+  .superclass {
+    background-color: #ffae00;
+  }
+  .class {
+    background-color: #ffea00;
+  }
+  .subclass {
+    background-color: #ddff00;
+  }
+  .superorder {
+    background-color: #a2ff00;
+  }
+  .order {
+    background-color: #6aff00;
+  }
+  .suborder {
+    background-color: #2fff00;
+  }
+  .infraorder {
+    background-color: #00ff0d;
+  }
+  .superfamily {
+    background-color: #00ff44;
+  }
+  .epifamily {
+    background-color: #00ff80;
+  }
+  .family {
+    background-color: #00ffbb;
+  }
+  .subfamily {
+    background-color: #00fff2;
+  }
+  .supertribe {
+    background-color: #00d0ff;
+  }
+  .tribe {
+    background-color: #0095ff;
+  }
+  .subtribe {
+    background-color: #005eff;
+  }
+  .genus {
+    background-color: #0022ff;
+  }
+  .genushybrid {
+    background-color: #1500ff;
+  }
+  .species {
+    background-color: #5100ff;
+  }
+  .subspecies {
+    background-color: #8c00ff;
+  }
+  .variety {
+    background-color: #c400ff;
+  }
+  .form {
+    background-color: #ff00ff;
+  }
+}
