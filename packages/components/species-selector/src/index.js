@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import AsyncSelect from 'react-select/async';
 import axios from 'axios';
 import debounce from 'debounce';
@@ -8,11 +9,15 @@ import styles from './styles.scss';
 const API_SERVER = 'http://localhost:5000';
 
 const getData = (inputValue, callback) => {
+	if (inputValue === '') {
+		callback([]);
+	}
 	axios.get(`${API_SERVER}/api/taxonautocomplete?str=${inputValue}`)
 		.then((resp) => {
 			callback((resp.data.length) ? resp.data : []);
 		});
 };
+
 const debouncedGetData = debounce(getData, 250);
 
 const loadOptions = (inputValue, callback) => {
@@ -60,6 +65,7 @@ class SpeciesSelector extends Component {
 
 	onSelect (item) {
 		this.setState({ value: item });
+		this.props.onSelect(item);
 	}
 
 	render () {
@@ -68,6 +74,14 @@ class SpeciesSelector extends Component {
 				cacheOptions
 				loadOptions={loadOptions}
 				defaultOptions
+				styles={{
+					menu: () => ({
+						border: '1px solid #cccccc',
+						borderRadius: 3,
+						margin: '6px 0 0 0',
+						padding: 0
+					})
+				}}
 				onInputChange={this.handleInputChange}
 				isClearable={true}
 				components={{
@@ -82,5 +96,11 @@ class SpeciesSelector extends Component {
 		);
 	}
 }
+SpeciesSelector.propTypes = {
+	onSelect: PropTypes.func
+};
+SpeciesSelector.defaultProps = {
+	onSelect: () => {}
+};
 
 export default SpeciesSelector;

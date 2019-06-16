@@ -37,7 +37,7 @@ export const ranks = [ // 'High'?
 	{ rank: 'variety', isPrimary: false },
 	{ rank: 'form', isPrimary: false },
 	{ rank: 'infrahybrid', isPrimary: false },
-]
+];
 
 
 // recurse through the destination tree and append the new taxonomy info. As soon as the tree starts to deviate

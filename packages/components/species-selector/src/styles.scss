@@ -12,6 +12,8 @@
   img {
     flex: 0 0 32px;
     margin-right: 6px;
+    background-color: #ffffef;
+    border-radius: 2px;
   }
 
   &>div {
@@ -25,85 +27,132 @@
   }
   .rank {
     float: right;
-    padding: 2px 4px;
+    padding: 2px 5px;
     border-radius: 3px;
     font-size: 10px;
     margin-right: 8px;
     color: white;
   }
 
-
-  // section
-  // apifamily
-
   // generated from: https://planetcalc.com/5799/
   .kingdom {
     background-color: #ff0000;
   }
   .phylum {
-    background-color: #ff3c00;
+    background-color: #ff2600;
   }
   .subphylum {
-    background-color: #ff7300;
+    background-color: #ff4d00;
   }
   .superclass {
-    background-color: #ffae00;
+    background-color: #ff7300;
   }
   .class {
-    background-color: #ffea00;
+    background-color: #ff9900;
   }
   .subclass {
-    background-color: #ddff00;
+    background-color: #ffbf00;
+    color: black;
+  }
+  .infraclass {
+    background-color: #ffea00;
+    color: black;
+  }
+  .subterclass {
+    background-color: #eeff00;
+    color: black;
   }
   .superorder {
-    background-color: #a2ff00;
+    background-color: #c8ff00;
+    color: black;
   }
   .order {
-    background-color: #6aff00;
+    background-color: #a2ff00;
+    color: black;
   }
   .suborder {
-    background-color: #2fff00;
+    background-color: #7bff00;
+    color: black;
   }
   .infraorder {
-    background-color: #00ff0d;
+    background-color: #55ff00;
+    color: black;
+  }
+  .parvorder {
+    background-color: #2fff00;
+    color: black;
+  }
+  .zoosection {
+    background-color: #09ff00;
+  }
+  .zoosubsection {
+    background-color: #00ff1e;
   }
   .superfamily {
     background-color: #00ff44;
   }
   .epifamily {
-    background-color: #00ff80;
+    background-color: #00ff6a;
   }
   .family {
-    background-color: #00ffbb;
+    background-color: #00ff95;
+    color: black;
   }
   .subfamily {
-    background-color: #00fff2;
+    background-color: #00ffbb;
+    color: black;
   }
   .supertribe {
-    background-color: #00d0ff;
+    background-color: #00ffe1;
+    color: black;
   }
   .tribe {
-    background-color: #0095ff;
+    background-color: #00f7ff;
+    color: black;
   }
   .subtribe {
-    background-color: #005eff;
+    background-color: #00d0ff;
+    color: black;
   }
   .genus {
-    background-color: #0022ff;
+    background-color: #00aaff;
   }
   .genushybrid {
+    background-color: #0084ff;
+  }
+  .subgenus {
+    background-color: #005eff;
+  }
+  .section {
+    background-color: #5100ff;
+  }
+  .subsection {
+    background-color: #0011ff;
+  }
+  .complex {
     background-color: #1500ff;
   }
   .species {
-    background-color: #5100ff;
+    background-color: #4000ff;
+  }
+  .hybrid {
+    background-color: #6600ff;
   }
   .subspecies {
     background-color: #8c00ff;
   }
   .variety {
-    background-color: #c400ff;
+    background-color: #b300ff;
   }
   .form {
+    background-color: #d900ff;
+  }
+  .infrahybrid {
     background-color: #ff00ff;
   }
+}
+
+.chicken {
+  margin: 0;
+  padding: 0;
 }
