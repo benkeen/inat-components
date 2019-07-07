@@ -13,8 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@benkeen/species-selector": "0.0.1",
-    "@benkeen/activity-charts": "0.0.1"
+    "@inat-components/activity-chart": "0.0.1",
+    "@inat-components/species-selector": "0.0.1",
+    "storybook-readme": "^5.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

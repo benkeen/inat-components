@@ -1,5 +1,6 @@
-#### iNaturalist React Components
+# iNaturalist React Components
 
-The purpose of this repo is provide 
+This repo houses various standalone React components for providing interactivity with the .
 
-Each component is e
+*as such requires a server*.
+
