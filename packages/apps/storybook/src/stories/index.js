@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
 import Selector from '@benkeen/species-selector';
-
+import ProjectActivityDemo from './components/ProjectActivityDemo';
 
 class ExampleSelector extends Component {
 	constructor (props) {
@@ -34,6 +34,13 @@ class ExampleSelector extends Component {
 		);
 	}
 }
+
+storiesOf('Project activity', module).add('Example', () => (
+	<div>
+		<ProjectActivityDemo />
+	</div>
+));
+
 
 storiesOf('Species Selector', module)
 	.add('Example', () => (

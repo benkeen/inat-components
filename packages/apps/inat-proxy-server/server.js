@@ -6,12 +6,16 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const baseUrl = 'https://api.inaturalist.org/v1';
+const newApiBaseUrl = 'https://api.inaturalist.org/v1';
+const oldApiBaseUrl = 'https://www.inaturalist.org';
+
+
+// NEW API calls ----------------------------------------------------------------------------------------
 
 app.get('/api/taxon', (req, res) => {
 	const observationId = req.query.id;
 	Promise.all([
-		axios.get(`${baseUrl}/taxa/${observationId}`)
+		axios.get(`${newApiBaseUrl}/taxa/${observationId}`)
 	]).then((values) => {
 		res.send(values[0].data.results[0]);
 	});
@@ -25,7 +29,7 @@ app.get('/api/taxonautocomplete', (req, res) => {
 
 	const str = req.query.str;
 	Promise.all([
-		axios.get(`${baseUrl}/taxa/autocomplete?q=${str}&per_page=10`)
+		axios.get(`${newApiBaseUrl}/taxa/autocomplete?q=${str}&per_page=10`)
 	]).then((values) => {
 
 		// return a teensy subset of all the data
@@ -65,6 +69,25 @@ app.get('/api/taxonautocomplete', (req, res) => {
 // 		res.send(cleanData);
 // 	});
 // });
+
+app.get('/api/projectActivity', (req, res) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	const projectId = req.query.projectId;
+	const dataGrouping = req.query.dataGrouping;
+
+	const url = `${newApiBaseUrl}/observations/histogram/?project_id=${projectId}&date_field=created&interval=${dataGrouping}`;
+	Promise.all([
+		axios.get(url)
+	]).then((resp) => {
+		res.send(resp[0].data);
+	}).catch((resp) => {
+		console.log('error.', resp.request);
+	});
+});
+
+
+// OLD API calls ----------------------------------------------------------------------------------------
+
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -5,7 +5,8 @@
     "start": "npm-run-all -p startProxyServer startAll startStorybook",
     "startProxyServer": "node packages/apps/inat-proxy-server/server.js",
     "startStorybook": "npm run --prefix packages/apps/storybook storybook",
-    "startAll": "lerna run start --parallel"
+    "startAll": "lerna run start --parallel",
+    "build": "lerna run build"
   },
   "devDependencies": {
     "lerna": "^3.10.4",
