@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-const API_SERVER = 'http://localhost:5000';
+export const fetchProjectData = ({ endpoint, projectId, dataGrouping, qualityGrade }, onSuccess, onError) => {
 
-export const fetchProjectData = ({ projectId, dataGrouping }, onSuccess, onError) => {
-	axios.get(`${API_SERVER}/api/projectActivity/?projectId=${projectId}&dataGrouping=${dataGrouping}`)
+	axios.get(`${endpoint}/?projectId=${projectId}&dataGrouping=${dataGrouping}&qualityGrade=${qualityGrade}`)
 		.then((resp) => onSuccess(resp.data))
 		.catch(onError);
 };

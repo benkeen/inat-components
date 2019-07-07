@@ -27,7 +27,7 @@ export default class ProjectActivityDemo extends Component {
 			return null;
 		}
 		return (
-			<ProjectActivity projectId={projectId} />
+			<ProjectActivity projectId={projectId} endpoint={this.props.endpoint} />
 		);
 	}
 

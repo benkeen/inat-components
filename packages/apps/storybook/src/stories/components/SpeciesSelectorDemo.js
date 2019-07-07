@@ -20,10 +20,12 @@ class ExampleSpeciesSelector extends Component {
 	}
 
 	render () {
+		const { endpoint } = this.props;
+
 		return (
 			<>
 				<div style={{ width: 300 }}>
-					<Selector onSelect={this.onSelect} />
+					<Selector onSelect={this.onSelect} endpoint={endpoint} />
 				</div>
 
 				<div style={{ marginTop: 20, padding: 10, width: '100%', whiteSpace: 'pre', color: '#999999' }}>

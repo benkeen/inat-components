@@ -45,6 +45,24 @@ app.get('/api/taxonautocomplete', (req, res) => {
 });
 
 
+app.get('/api/projectActivity', (req, res) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	const projectId = req.query.projectId;
+	const dataGrouping = req.query.dataGrouping;
+	const qualityGrade = req.query.qualityGrade;
+
+	const url = `${newApiBaseUrl}/observations/histogram/?project_id=${projectId}&date_field=created&interval=${dataGrouping}&quality_grade=${qualityGrade}`;
+	Promise.all([
+		axios.get(url)
+	]).then((resp) => {
+		res.send(resp[0].data);
+	}).catch((resp) => {
+		console.log('error.', resp.request);
+	});
+});
+
+
+
 // app.get('/api/taxa', (req, res) => {
 // 	Promise.all([
 // 		axios.get(`${baseUrl}/taxa?rank=kingdom`),
@@ -69,21 +87,6 @@ app.get('/api/taxonautocomplete', (req, res) => {
 // 		res.send(cleanData);
 // 	});
 // });
-
-app.get('/api/projectActivity', (req, res) => {
-	res.header("Access-Control-Allow-Origin", "*");
-	const projectId = req.query.projectId;
-	const dataGrouping = req.query.dataGrouping;
-
-	const url = `${newApiBaseUrl}/observations/histogram/?project_id=${projectId}&date_field=created&interval=${dataGrouping}`;
-	Promise.all([
-		axios.get(url)
-	]).then((resp) => {
-		res.send(resp[0].data);
-	}).catch((resp) => {
-		console.log('error.', resp.request);
-	});
-});
 
 
 // OLD API calls ----------------------------------------------------------------------------------------

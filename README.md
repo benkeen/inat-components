@@ -7,7 +7,8 @@ but until then they're only accessible via this repo.
 This is a [lerna monorepo](https://lerna.js.org/) running a storybook instance that imports the various components. If
 that sounds scary, don't worry. It's actually super cool & simple once you see what it does and how it works. Basically 
 it makes my job a hundred times easier by housing everything in a single place and I can publish everything to npm in
-one go.
+one go. Plus I get a nice easy dev environment with hot-reloading hooked up that consumes the components as if they were 
+already housed in npm, warding against daft errors in the way I'm packing them up (rollup, btw).
 
 Because all the components require making requests the inaturalist API for the actual source data, some server-side code is
 required to act as a proxy to get around CORS. For the sake of this repo, I boot up a simple express instance and use

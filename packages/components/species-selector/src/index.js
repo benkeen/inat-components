@@ -6,13 +6,11 @@ import debounce from 'debounce';
 import styles from './styles.scss';
 
 
-const API_SERVER = 'http://localhost:5000';
-
-const getData = (inputValue, callback) => {
+const getData = (endpoint, inputValue, callback) => {
 	if (inputValue === '') {
 		callback([]);
 	}
-	axios.get(`${API_SERVER}/api/taxonautocomplete?str=${inputValue}`)
+	axios.get(`${endpoint}?str=${inputValue}`)
 		.then((resp) => {
 			callback((resp.data.length) ? resp.data : []);
 		});
@@ -97,10 +95,8 @@ class SpeciesSelector extends Component {
 	}
 }
 SpeciesSelector.propTypes = {
-	onSelect: PropTypes.func
-};
-SpeciesSelector.defaultProps = {
-	onSelect: () => {}
+	onSelect: PropTypes.func.isRequired,
+	endpoint: PropTypes.string.isRequired
 };
 
 export default SpeciesSelector;

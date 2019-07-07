@@ -13,8 +13,8 @@ class ProjectActivity extends Component {
 			loaded: false,
 			chartType: 'bar', // 'chart', 'bar', 'line
 			dataGrouping: 'year', // 'year', 'month_of_year'
-			yearData: null,
-			monthOfYearData: null,
+			qualityGrade: '',
+			data: {},
 			color: '#3399cc'
 		};
 
@@ -22,33 +22,44 @@ class ProjectActivity extends Component {
 		this.onError = this.onError.bind(this);
 		this.onChangeChartType = this.onChangeChartType.bind(this);
 		this.onChangeDataGrouping = this.onChangeDataGrouping.bind(this);
+		this.onChangeQualityGrade = this.onChangeQualityGrade.bind(this);
+		//this.getRequestKey = this.getRequestKey.bind(this);
 
-		this.fetchData(props.projectId, this.state.dataGrouping);
+		this.fetchData(props.endpoint, props.projectId, this.state.dataGrouping, this.state.qualityGrade);
 	}
 
-	fetchData (projectId, dataGrouping) {
-		helpers.fetchProjectData({ projectId, dataGrouping }, this.onSuccess, this.onError);
+	fetchData (endpoint, projectId, dataGrouping, qualityGrade) {
+		helpers.fetchProjectData({ endpoint, projectId, dataGrouping, qualityGrade }, this.onSuccess, this.onError);
+	}
+
+	getRequestKey () {
+		const { dataGrouping, qualityGrade } = this.state;
+		return `${dataGrouping}|${qualityGrade}`;
 	}
 
 	// if the user just selected a new grouping & we haven't pinged the server for it yet, do so
 	componentDidUpdate () {
-		const { dataGrouping, yearData, monthOfYearData } = this.state;
-		if ((dataGrouping === 'year' && yearData === null) ||
-			(dataGrouping === 'month_of_year' && monthOfYearData === null)) {
-			this.fetchData(this.props.projectId, dataGrouping);
+		const { dataGrouping, qualityGrade, data } = this.state;
+		const { projectId, endpoint } = this.props;
+
+		if (!data.hasOwnProperty(this.getRequestKey())) {
+			this.fetchData(endpoint, projectId, dataGrouping, qualityGrade);
 		}
 	}
 
 	onSuccess (resp) {
-		const { dataGrouping } = this.state;
+		const { dataGrouping, data } = this.state;
 
 		let newState = {
-			loaded: true
+			loaded: true,
+			data
 		};
+
+		const key = this.getRequestKey();
 
 		// assumption is that the dataGrouping in state is still correct here
 		if (dataGrouping === 'year') {
-			newState.yearData = Object.keys(resp.results.year).map((date) => {
+			newState.data[key] = Object.keys(resp.results.year).map((date) => {
 				const [year] = date.split('-');
 				return {
 					name: year,
@@ -57,7 +68,7 @@ class ProjectActivity extends Component {
 			});
 		} else {
 			const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-			newState.monthOfYearData = Object.keys(resp.results.month_of_year).map((monthNum) => {
+			newState.data[key] = Object.keys(resp.results.month_of_year).map((monthNum) => {
 				return {
 					name: monthNames[monthNum-1],
 					obsCount: resp.results.month_of_year[monthNum]
@@ -80,17 +91,17 @@ class ProjectActivity extends Component {
 		this.setState({ dataGrouping });
 	}
 
-	getChart () {
-		const { dataGrouping, chartType, yearData, monthOfYearData, color } = this.state;
+	onChangeQualityGrade (qualityGrade) {
+		this.setState({ qualityGrade });
+	}
 
-		let data = yearData;
-		if (dataGrouping === 'month_of_year') {
-			data = monthOfYearData;
-		}
+	getChart () {
+		const { chartType, data, color } = this.state;
+		const currData = data[this.getRequestKey()];
 
 		if (chartType === 'bar') {
 			return (
-				<BarChart data={data}>
+				<BarChart data={currData}>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis dataKey="name" />
 					<YAxis />
@@ -102,7 +113,7 @@ class ProjectActivity extends Component {
 		}
 		if (chartType === 'line') {
 			return (
-				<LineChart data={data}>
+				<LineChart data={currData}>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis dataKey="name" />
 					<YAxis />
@@ -114,7 +125,7 @@ class ProjectActivity extends Component {
 		}
 
 		return (
-			<AreaChart data={data}>
+			<AreaChart data={currData}>
 				<defs>
 					<linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
 						<stop offset="5%" stopColor={color} stopOpacity={0.8} />
@@ -132,7 +143,7 @@ class ProjectActivity extends Component {
 	}
 
 	render () {
-		const { loaded, chartType, dataGrouping } = this.state;
+		const { loaded, chartType, dataGrouping, qualityGrade } = this.state;
 
 		if (!loaded) {
 			return <span>Loading...</span>;
@@ -145,52 +156,40 @@ class ProjectActivity extends Component {
 
 				<section style={{ display: 'flex', height: 400, flexDirection: 'row' }}>
 					<div style={{ flex: '0 0 auto' }}>
-						<div>
-							Chart type:
-							<select value={chartType} onChange={(e) => this.onChangeChartType(e.target.value)}>
-								<option value="bar">Bar chart</option>
-								<option value="line">Line chart</option>
-								<option value="area">Area chart</option>
-							</select>
-						</div>
-
-						<div>
-							Date range
-							<ul>
-								<li><input type="radio" /> All years</li>
-								<li><input type="radio" /> Year: <input type="text" size="5" /></li>
-								<li><input type="radio" /> Year range: <input type="text" size="5" />&#8212;<input type="text" size="5" /></li>
-							</ul>
-						</div>
-
-						<div>
-							Data grouping:
-							<select value={dataGrouping} onChange={(e) => this.onChangeDataGrouping(e.target.value)}>
-								<option value="year">By year</option>
-								<option value="month_of_year">Month of year</option>
-							</select>
-						</div>
-
-						<div>
-							Quality grade:
-							<select>
-								<option>All</option>
-								<option>Casual</option>
-								<option>Needs ID</option>
-								<option>Research</option>
-							</select>
-						</div>
-
-						<div>
-							<ul>
-								<li><input type="checkbox" />Native</li>
-								<li><input type="checkbox" />Endemic</li>
-								<li><input type="checkbox" />Out of range</li>
-								<li><input type="checkbox" />Introduced</li>
-								<li><input type="checkbox" />Threatened</li>
-							</ul>
-						</div>
-
+						<table>
+						<tbody>
+						<tr>
+							<td>Chart type</td>
+							<td>
+								<select value={chartType} onChange={(e) => this.onChangeChartType(e.target.value)}>
+									<option value="bar">Bar chart</option>
+									<option value="line">Line chart</option>
+									<option value="area">Area chart</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Data grouping</td>
+							<td>
+								<select value={dataGrouping} onChange={(e) => this.onChangeDataGrouping(e.target.value)}>
+									<option value="year">By year</option>
+									<option value="month_of_year">Month of year</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Quality grade</td>
+							<td>
+								<select value={qualityGrade} onChange={(e) => this.onChangeQualityGrade(e.target.value)}>
+									<option value="">All</option>
+									<option value="casual">Casual</option>
+									<option value="needs_id">Needs ID</option>
+									<option value="research">Research</option>
+								</select>
+							</td>
+						</tr>
+						</tbody>
+						</table>
 					</div>
 					<div style={{ flex: 1 }}>
 						<ResponsiveContainer>
@@ -203,7 +202,8 @@ class ProjectActivity extends Component {
 	}
 }
 ProjectActivity.propTypes = {
-	projectId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
+	projectId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+	endpoint: PropTypes.string.isRequired
 };
 
 export default ProjectActivity;
