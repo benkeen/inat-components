@@ -171,15 +171,25 @@ class ProjectActivity extends Component {
 							</select>
 						</div>
 
-						Quality grade
+						<div>
+							Quality grade:
+							<select>
+								<option>All</option>
+								<option>Casual</option>
+								<option>Needs ID</option>
+								<option>Research</option>
+							</select>
+						</div>
 
-
-						Native
-						Endemic
-						Out of range
-						introduced
-						Threatened
-
+						<div>
+							<ul>
+								<li><input type="checkbox" />Native</li>
+								<li><input type="checkbox" />Endemic</li>
+								<li><input type="checkbox" />Out of range</li>
+								<li><input type="checkbox" />Introduced</li>
+								<li><input type="checkbox" />Threatened</li>
+							</ul>
+						</div>
 
 					</div>
 					<div style={{ flex: 1 }}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProjectActivity from '@benkeen/project-activity';
+import ProjectActivity from '../../../../../components/activity-chart';
 
 
 export default class ProjectActivityDemo extends Component {

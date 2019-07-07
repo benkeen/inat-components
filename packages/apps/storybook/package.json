@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@benkeen/species-selector": "0.0.1",
-    "@benkeen/project-activity": "0.0.1"
+    "@benkeen/activity-charts": "0.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

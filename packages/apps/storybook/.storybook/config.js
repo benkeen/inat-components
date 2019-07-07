@@ -1,7 +1,18 @@
-import { configure } from '@storybook/react';
+import { addParameters, configure } from '@storybook/react';
+import { create } from '@storybook/theming';
 
-function loadStories() {
-  require('../src/stories');
+addParameters({
+	options: {
+		theme: create({
+			base: 'light',
+			brandTitle: 'iNat components',
+			url: 'https://github.com/benkeen/inat-components'
+		})
+	}
+});
+
+function loadStories () {
+	require('../src/stories');
 }
 
 configure(loadStories, module);

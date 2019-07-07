@@ -1,70 +1,54 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Selector from '@benkeen/species-selector';
+import { doc } from 'storybook-readme';
+import Introduction from './docs/introduction.md';
+import ExampleSpeciesSelector from './components/SpeciesSelectorDemo';
 import ProjectActivityDemo from './components/ProjectActivityDemo';
 
-class ExampleSelector extends Component {
-	constructor (props) {
-		super(props);
 
-		this.state = {
-			lastSelectedValue: ''
-		};
-		this.onSelect = this.onSelect.bind(this);
-	}
+storiesOf('Documentation', module)
+	.add('Project activity', () => (
+	<div>
+		{Introduction}
+	</div>
+));
 
-	onSelect (item) {
-		const result = item === null ? '' : JSON.stringify(item, null, '\t');
-		this.setState({
-			lastSelectedValue: result
-		});
-	}
-
-	render () {
-		return (
-			<>
-				<div style={{ width: 300 }}>
-					<Selector onSelect={this.onSelect} />
-				</div>
-
-				<div style={{ marginTop: 20, padding: 10, width: '100%', whiteSpace: 'pre', color: '#999999' }}>
-					{this.state.lastSelectedValue}
-				</div>
-			</>
-		);
-	}
-}
-
-storiesOf('Project activity', module).add('Example', () => (
+storiesOf('Activity Charts', module).add('Project activity', () => (
 	<div>
 		<ProjectActivityDemo />
 	</div>
 ));
 
+storiesOf('Activity Charts', module).add('User activity', () => (
+	<div>
+		<ProjectActivityDemo />
+	</div>
+));
+
+storiesOf('User Selector', module).add('Demo', () => (
+	<div>
+
+	</div>
+));
+
+
+storiesOf('Project Selector', module).add('Demo', () => (
+	<div>
+
+	</div>
+));
 
 storiesOf('Species Selector', module)
 	.add('Example', () => (
 		<div>
 			<h1>Species selector</h1>
-			<ExampleSelector />
+			<ExampleSpeciesSelector />
 		</div>
 	));
 
 storiesOf('Species Selector', module)
 	.add('Creating pills', () => (
 		<div style={{ width: 300 }}>
-			<Selector clearOnSelect />
+			<ExampleSpeciesSelector clearOnSelect />
 		</div>
 	));
-
-storiesOf('Relationship Graph', module).add('Example', () => (
-	<div>
-		<blockquote>
-			<pre>
-variable carpet moth
-american lappet moth
-			</pre>
-		</blockquote>
-		...
-	</div>
-));
