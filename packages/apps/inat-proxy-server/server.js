@@ -7,24 +7,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const newApiBaseUrl = 'https://api.inaturalist.org/v1';
-const oldApiBaseUrl = 'https://www.inaturalist.org';
 
 
-// NEW API calls ----------------------------------------------------------------------------------------
-
-app.get('/api/taxon', (req, res) => {
-	const observationId = req.query.id;
-	Promise.all([
-		axios.get(`${newApiBaseUrl}/taxa/${observationId}`)
-	]).then((values) => {
-		res.send(values[0].data.results[0]);
-	});
-});
-
-// used for the species-selector autocomplete component
+/**
+ * For: <SpeciesSelector />
+ * ------------------------
+ */
 app.get('/api/taxonautocomplete', (req, res) => {
-
-	// Access-Control-Allow-Origin: http://localhost:3000
 	res.header("Access-Control-Allow-Origin", "*");
 
 	const str = req.query.str;
@@ -32,7 +21,7 @@ app.get('/api/taxonautocomplete', (req, res) => {
 		axios.get(`${newApiBaseUrl}/taxa/autocomplete?q=${str}&per_page=10`)
 	]).then((values) => {
 
-		// return a teensy subset of all the data
+		// return a teensy subset of all the data (you don't have to do this, it just reduces bandwidth for your users)
 		const results = values[0].data.results.map(({ name, rank, preferred_common_name, default_photo }) => ({
 			name,
 			rank,
@@ -45,7 +34,27 @@ app.get('/api/taxonautocomplete', (req, res) => {
 });
 
 
-app.get('/api/projectActivity', (req, res) => {
+/**
+ * For: <ProjectSelector />
+ * ------------------------
+ */
+app.get('/api/projectSelector', (req, res) => {
+	res.header("Access-Control-Allow-Origin", "*");
+
+	const str = req.query.str;
+	Promise.all([
+		axios.get(`${newApiBaseUrl}/projects/autocomplete?q=${str}&per_page=10`)
+	]).then((values) => {
+		res.send(values[0].data.results);
+	});
+});
+
+
+/**
+ * For: <ActivityChart />
+ * ----------------------
+ */
+app.get('/api/activityChart', (req, res) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	const projectId = req.query.projectId;
 	const dataGrouping = req.query.dataGrouping;
@@ -61,6 +70,15 @@ app.get('/api/projectActivity', (req, res) => {
 	});
 });
 
+
+// app.get('/api/taxon', (req, res) => {
+// 	const observationId = req.query.id;
+// 	Promise.all([
+// 		axios.get(`${newApiBaseUrl}/taxa/${observationId}`)
+// 	]).then((values) => {
+// 		res.send(values[0].data.results[0]);
+// 	});
+// });
 
 
 // app.get('/api/taxa', (req, res) => {
@@ -87,9 +105,6 @@ app.get('/api/projectActivity', (req, res) => {
 // 		res.send(cleanData);
 // 	});
 // });
-
-
-// OLD API calls ----------------------------------------------------------------------------------------
 
 
 

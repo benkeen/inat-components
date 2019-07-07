@@ -17,6 +17,7 @@
     "@inat-components/project-selector": "0.0.1",
     "@inat-components/species-selector": "0.0.1",
     "@inat-components/user-selector": "0.0.1",
+    "react-syntax-highlighter": "^11.0.1",
     "storybook-readme": "^5.0.5"
   },
   "devDependencies": {

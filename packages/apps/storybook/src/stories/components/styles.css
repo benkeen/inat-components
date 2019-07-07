@@ -1,0 +1,16 @@
+.selectProjectPanel {
+    background-color: #efefef;
+    border: 1px solid #cccccc;
+    padding: 15px;
+    border-radius: 6px;
+    margin: -5px -20px 0 -20px;
+}
+
+.selectProjectPanel > div {
+    display: inline-block;
+}
+
+.selectProjectPanel > label {
+    display: inline-block;
+    padding-right: 15px;
+}

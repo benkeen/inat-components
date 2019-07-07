@@ -7,11 +7,13 @@ export default {
 	output: [{
 		file: pkg.main,
 		format: 'cjs',
-		sourcemap: true
+		sourcemap: true,
+		named: true
 	}, {
 		file: pkg.module,
 		format: 'es',
-		sourcemap: true
+		sourcemap: true,
+		named: true
 	}],
 	plugins: [
 		babel({

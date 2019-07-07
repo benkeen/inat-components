@@ -1,6 +1,4 @@
 # iNaturalist React Components
 
-This repo houses various standalone React components for providing interactivity with the .
-
-*as such requires a server*.
+This application demos the suite of React components within the `@inat-components` npm org.
 

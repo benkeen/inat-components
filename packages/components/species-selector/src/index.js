@@ -6,22 +6,6 @@ import debounce from 'debounce';
 import styles from './styles.scss';
 
 
-const getData = (endpoint, inputValue, callback) => {
-	if (inputValue === '') {
-		callback([]);
-	}
-	axios.get(`${endpoint}?str=${inputValue}`)
-		.then((resp) => {
-			callback((resp.data.length) ? resp.data : []);
-		});
-};
-
-const debouncedGetData = debounce(getData, 250);
-
-const loadOptions = (inputValue, callback) => {
-	debouncedGetData(inputValue, callback);
-};
-
 const SpeciesRow = ({ innerProps, data }) => {
 	return (
 		<div {...innerProps} className={styles.row}>
@@ -45,7 +29,27 @@ class SpeciesSelector extends Component {
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.onSelect = this.onSelect.bind(this);
+		this.getData = this.getData.bind(this);
+
+		this.debouncedGetData = debounce(this.getData, 250);
 	}
+
+	getData (inputValue, callback) {
+		const { endpoint } = this.props;
+		if (inputValue === '') {
+			callback([]);
+		}
+		axios.get(`${endpoint}?str=${inputValue}`)
+			.then((resp) => {
+				callback((resp.data.length) ? resp.data : []);
+			});
+	};
+
+	//
+	// const loadOptions = (inputValue, callback) => {
+	// 	debouncedGetData(inputValue, callback);
+	// };
+	//
 
 	handleInputChange (newValue, { action }) {
 		const newState = {};
@@ -70,7 +74,7 @@ class SpeciesSelector extends Component {
 		return (
 			<AsyncSelect
 				cacheOptions
-				loadOptions={loadOptions}
+				loadOptions={this.debouncedGetData}
 				defaultOptions
 				styles={{
 					menu: () => ({
