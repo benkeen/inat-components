@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Selector from '@benkeen/species-selector';
+import Selector from '@inat-components/species-selector';
 
 
 class ExampleSpeciesSelector extends Component {
