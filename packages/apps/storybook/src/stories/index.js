@@ -123,3 +123,29 @@ storiesOf('Activity Chart', module).add('Users', () => (
 		<ActivityChartDemo endpoint={`${API_SERVER}/api/activityChart`} />
 	</div>
 ));
+
+storiesOf('User Observations', module).add('Generator', () => (
+	<div>
+		<h1>Sunburst chart generator</h1>
+
+		<b>Step 1</b>: get the raw data + convert it into a format that the user can save.
+		<div>
+			<input type="text" id="user_id" size="8" placeholder="User" />
+			<input type="text" id="user_id" size="8" placeholder="Place" />
+			<input type="text" id="user_id" size="8" placeholder="Taxon" />
+			<input type="button" value="Get data" />
+		</div>
+
+		<b>Step 2</b>: dynamic construction of visualization
+		<ul>
+			<li>Flat or dynamic sunbursts</li>
+			<li>Show/hide taxon name</li>
+			<li>Colors</li>
+			<li>Font sizes</li>
+			<li>Links to iNaturalist?</li>
+			<li>Dimensions</li>
+		</ul>
+
+
+	</div>
+));

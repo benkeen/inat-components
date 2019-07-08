@@ -25,9 +25,11 @@ and document the various props & features the components offer.
 
 - `<SpeciesSelector />` - a typeahead component to search and select a species or other taxon.
 - `<UserSelector />` - a typeahead component to search for users.
+- `<PlaceSelector />` - a typeahead component for places
 - `<ProjectSelector />` - another typeahead component to search for projects.
 - `<ActivityChart />` - a component built on [recharts](http://recharts.org) to visualize a single user/project
 observation data.
+- `<UserObservations />`
 
 
 ### Installation 

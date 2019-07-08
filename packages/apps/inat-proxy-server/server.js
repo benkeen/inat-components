@@ -49,6 +49,7 @@ app.get('/api/projectSelector', (req, res) => {
 	});
 });
 
+// place_id=7085&taxon_id=47157&user_id=benkeen
 
 /**
  * For: <ActivityChart />
@@ -70,6 +71,28 @@ app.get('/api/activityChart', (req, res) => {
 	});
 });
 
+
+
+
+/**
+ * For: <UserObservations />
+ * ------------------------
+ */
+app.get('/api/userObservations', (req, res) => {
+	res.header("Access-Control-Allow-Origin", "*");
+
+	const taxonId = req.query.taxon_id;
+	const userId = req.query.user_id;
+	const placeId = req.query.place_id;
+
+	// observations?place_id=7085&rank=genus%2Cspecies&taxon_id=47157&user_id=1148374&order=desc&order_by=created_at
+
+	Promise.all([
+		axios.get(`${newApiBaseUrl}/observations?taxon_id=${taxonId}&user_id=${userId}&place_id=${placeId}&per_page=1000`)
+	]).then((values) => {
+		res.send(values[0].data.results);
+	});
+});
 
 // app.get('/api/taxon', (req, res) => {
 // 	const observationId = req.query.id;
