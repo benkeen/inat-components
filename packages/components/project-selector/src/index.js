@@ -65,7 +65,6 @@ class ProjectSelector extends Component {
 			<AsyncSelect
 				cacheOptions
 				loadOptions={this.debouncedGetData}
-				defaultOptions
 				options={options}
 				styles={{
 					menu: () => ({
@@ -75,7 +74,8 @@ class ProjectSelector extends Component {
 						padding: 0,
 						position: 'absolute',
 						zIndex: 2,
-						backgroundColor: 'white'
+						backgroundColor: 'white',
+						width: '100%'
 					})
 				}}
 				onInputChange={this.handleInputChange}

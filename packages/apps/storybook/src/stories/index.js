@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { doc } from 'storybook-readme';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import Introduction from './docs/introduction.md';
 
@@ -36,7 +36,15 @@ storiesOf('Project Selector', module).add('README', doc(ProjectSelectorReadme));
 storiesOf('Project Selector', module).add('Example', () => (
 	<div>
 		<h1>Project Selector</h1>
+		<p>
+			A simple typeahead field to search for projects. The block below show all the returned data from the API call,
+			which you can use however you wish.
+		</p>
 		<ProjectSelectorDemo endpoint={`${API_SERVER}/api/projectSelector`} />
+
+		<SyntaxHighlighter language="html" style={a11yDark}>{`<ProjectSelector
+	endpoint="url_here"
+	onSelect={callback} />`}</SyntaxHighlighter>
 	</div>
 ));
 storiesOf('Project Selector', module).add('Node proxy', () => (
@@ -44,7 +52,7 @@ storiesOf('Project Selector', module).add('Node proxy', () => (
 		<h1>Node proxy example</h1>
 
 		<p>
-			This is taken from the source code of this repo. To demonstrate working versions of the components, a simple
+			This is taken from the source code of this repo. To demo actual working versions of the components, this simple
 			node express server is booted up when the application runs. That is accessible via <code>localhost:5000</code>
 			and allow client-side code to make requests to it. The code below shows how it exposes an
 			<code>/api/projectSelector</code> endpoint which acts as a proxy to the iNaturalist server, returning the
@@ -55,7 +63,7 @@ storiesOf('Project Selector', module).add('Node proxy', () => (
 			This is here as an example. You can implement this in whatever language you want.
 		</p>
 
-		<SyntaxHighlighter language="javascript" style={docco}>{`const express = require('express');
+		<SyntaxHighlighter language="javascript" style={a11yDark}>{`const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const app = express();

@@ -15,6 +15,13 @@ export default {
 		sourcemap: true,
 		named: true
 	}],
+	external: [
+		'axios',
+		'prop-types',
+		'react',
+		'react-spinners/ClipLoader',
+		'recharts'
+	],
 	plugins: [
 		babel({
 			exclude: 'node_modules/**'

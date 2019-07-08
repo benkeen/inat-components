@@ -8,48 +8,60 @@ import * as helpers from './helpers';
 
 
 
-const ActivityChart = ({ color, chartType, data }) => {
-	if (chartType === 'bar') {
-		return (
-			<BarChart data={data}>
-				<CartesianGrid strokeDasharray="3 3" />
-				<XAxis dataKey="name" />
-				<YAxis />
-				<Tooltip />
-				<Legend />
-				<Bar dataKey="obsCount" fill={color} name="Num observations" />
-			</BarChart>
-		);
-	}
-	if (chartType === 'line') {
-		return (
-			<LineChart data={data}>
-				<CartesianGrid strokeDasharray="3 3" />
-				<XAxis dataKey="name" />
-				<YAxis />
-				<Tooltip />
-				<Legend />
-				<Line type="monotone" dataKey="obsCount" stroke={color} name="Num observations" />
-			</LineChart>
-		);
-	}
+class ActivityChart extends Component {
+	render () {
 
-	return (
-		<AreaChart data={data}>
-			<defs>
-				<linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-					<stop offset="5%" stopColor={color} stopOpacity={0.8} />
-					<stop offset="95%" stopColor={color} stopOpacity={0} />
-				</linearGradient>
-			</defs>
-			<XAxis dataKey="name" />
-			<YAxis />
-			<CartesianGrid strokeDasharray="3 3" />
-			<Tooltip />
-			<Legend />
-			<Area type="monotone" dataKey="obsCount" stroke={color} fillOpacity={1} name="Num observations" fill="url(#gradient)" />
-		</AreaChart>
-	);
+		const { color, chartType, data } = this.props;
+		let chart = null;
+
+		if (chartType === 'bar') {
+			chart = (
+				<BarChart data={data}>
+					<CartesianGrid strokeDasharray="3 3"/>
+					<XAxis dataKey="name"/>
+					<YAxis/>
+					<Tooltip/>
+					<Legend/>
+					<Bar dataKey="obsCount" fill={color} name="Num observations"/>
+				</BarChart>
+			);
+		} else if (chartType === 'line') {
+			chart = (
+				<LineChart data={data}>
+					<CartesianGrid strokeDasharray="3 3"/>
+					<XAxis dataKey="name"/>
+					<YAxis/>
+					<Tooltip/>
+					<Legend/>
+					<Line type="monotone" dataKey="obsCount" stroke={color} name="Num observations"/>
+				</LineChart>
+			);
+		} else {
+			chart = (
+				<AreaChart data={data}>
+					<defs>
+						<linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+							<stop offset="5%" stopColor={color} stopOpacity={0.8}/>
+							<stop offset="95%" stopColor={color} stopOpacity={0}/>
+						</linearGradient>
+					</defs>
+					<XAxis dataKey="name"/>
+					<YAxis/>
+					<CartesianGrid strokeDasharray="3 3"/>
+					<Tooltip/>
+					<Legend/>
+					<Area type="monotone" dataKey="obsCount" stroke={color} fillOpacity={1} name="Num observations"
+					      fill="url(#gradient)"/>
+				</AreaChart>
+			);
+		}
+
+		return (
+			<ResponsiveContainer>
+				{chart}
+			</ResponsiveContainer>
+		)
+	}
 };
 
 
@@ -165,7 +177,7 @@ class ActivityChartPanel extends Component {
 		const currData = data[this.getRequestKey()];
 
 		return (
-			<section style={{ display: 'flex', height: 400, flexDirection: 'row' }}>
+			<section style={{ display: 'flex', flexDirection: 'row', height: 400 }}>
 				<div style={{ flex: '0 0 auto' }}>
 					<table>
 					<tbody>
@@ -203,14 +215,12 @@ class ActivityChartPanel extends Component {
 					</tbody>
 					</table>
 				</div>
-				<div style={{ flex: 1 }}>
-					<ResponsiveContainer>
-						<ActivityChart
-							color={color}
-							chartType={chartType}
-							data={currData}
-						/>
-					</ResponsiveContainer>
+				<div style={{ flex: '1 1 auto' }}>
+					<ActivityChart
+						color={color}
+						chartType={chartType}
+						data={currData}
+					/>
 				</div>
 			</section>
 		);

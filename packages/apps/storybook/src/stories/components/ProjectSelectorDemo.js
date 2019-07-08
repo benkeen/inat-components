@@ -28,7 +28,16 @@ class ExampleProjectSelector extends Component {
 					<Selector onSelect={this.onSelect} endpoint={endpoint} />
 				</div>
 
-				<div style={{ marginTop: 20, padding: 10, width: '100%', whiteSpace: 'pre', color: '#999999' }}>
+				<div style={{
+					marginTop: 20,
+					padding: 10,
+					width: '100%',
+					height: 200,
+					whiteSpace: 'pre',
+					color: '#999999',
+					border: '1px solid #dddddd',
+					overflow: 'scroll'
+				}}>
 					{this.state.lastSelectedValue}
 				</div>
 			</>

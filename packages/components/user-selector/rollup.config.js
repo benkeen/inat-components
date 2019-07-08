@@ -13,6 +13,13 @@ export default {
 		format: 'es',
 		sourcemap: true
 	}],
+	external: [
+		'axios',
+		'debounce',
+		'prop-types',
+		'react',
+		'react-select/async'
+	],
 	plugins: [
 		babel({
 			exclude: 'node_modules/**'
