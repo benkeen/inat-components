@@ -137,15 +137,16 @@ storiesOf('User Observations', module).add('Generator', () => (
 		</div>
 
 		<b>Step 2</b>: dynamic construction of visualization
+
 		<ul>
 			<li>Flat or dynamic sunbursts</li>
+			<li>Choose all sub-taxons from the source taxon (genus, subgenus, species, subspecies etc.)</li>
 			<li>Show/hide taxon name</li>
 			<li>Colors</li>
 			<li>Font sizes</li>
-			<li>Links to iNaturalist?</li>
+			<li>Links to iNaturalist</li>
 			<li>Dimensions</li>
+			<li>Species only / factor in num obs of each species</li>
 		</ul>
-
-
 	</div>
 ));
