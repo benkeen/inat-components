@@ -15,7 +15,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "rollup": "^1.15.5",
     "rollup-plugin-babel": "^4.3.2",
